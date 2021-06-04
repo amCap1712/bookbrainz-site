@@ -25,6 +25,12 @@ jobs:
         ports: 
           - 5432:5432
 
+      elasticserch:
+        image: elasticsearch:5.6.8
+        ports:
+          - 9200:9200
+          - 9300:9300
+
     steps:
     - uses: actions/checkout@v2
     
