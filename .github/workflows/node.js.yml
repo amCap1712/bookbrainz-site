@@ -58,4 +58,12 @@ jobs:
     
     - run: npm ci
     
-    - run: npm run-script test-ci
+    - run: npm run test-ci
+    
+    - run: npm run lint
+      if: ${{ always() }}
+      
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
