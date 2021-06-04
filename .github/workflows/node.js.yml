@@ -33,15 +33,14 @@ jobs:
     
     - name: Setup database
       run: |
-        pg_lsclusters
-        pgrep -u postgres -fa -- -D
-        psql -c 'CREATE DATABASE bookbrainz_test;' -U postgres
-        psql -c 'CREATE EXTENSION "uuid-ossp"; CREATE SCHEMA musicbrainz; CREATE SCHEMA bookbrainz;' -d bookbrainz_test -U postgres
-        psql -f sql/schemas/musicbrainz.sql -d bookbrainz_test -U postgres
-        psql -f sql/schemas/bookbrainz.sql -d bookbrainz_test -U postgres
-        psql -f sql/scripts/create_triggers.sql -d bookbrainz_test -U postgres
+        psql -c 'CREATE DATABASE bookbrainz_test;'
+        psql -c 'CREATE EXTENSION "uuid-ossp"; CREATE SCHEMA musicbrainz; CREATE SCHEMA bookbrainz;' -d bookbrainz_test
+        psql -f sql/schemas/musicbrainz.sql -d bookbrainz_test
+        psql -f sql/schemas/bookbrainz.sql -d bookbrainz_test
+        psql -f sql/scripts/create_triggers.sql -d bookbrainz_test
       env:
-        POSTGRES_HOST: localhost
+        PGHOST: localhost
+        PGUSER: postgres
     
     - name: Use Node.js 14
       uses: actions/setup-node@v2
